@@ -31,11 +31,19 @@ Node* minNode(Node* root){
 Node* deleteNode(Node* root, int key){
     if(!root) return NULL;
 
-    if(key < root->data) root->left = deleteNode(root->left, key);
-    else if(key > root->data) root->right = deleteNode(root->right, key);
+    if(key < root->data) {
+        root->left = deleteNode(root->left, key);
+    }
+    else if(key > root->data) {
+        root->right = deleteNode(root->right, key);
+    }
     else {
-        if(!root->left) return root->right;
-        else if(!root->right) return root->left;
+        if(!root->left){
+            return root->right;
+        }
+        else if(!root->right) {
+            return root->left;
+        }
         Node* temp = minNode(root->right);
         root->data = temp->data;
         root->right = deleteNode(root->right, temp->data);
@@ -45,13 +53,17 @@ Node* deleteNode(Node* root, int key){
 
 // Max depth
 int maxDepth(Node* root){
-    if(!root) return 0;
+    if(!root) {
+        return 0;
+    }
     return 1 + max(maxDepth(root->left), maxDepth(root->right));
 }
 
 // Min depth
 int minDepth(Node* root){
-    if(!root) return 0;
+    if(!root) {
+        return 0;
+    }
     return 1 + min(minDepth(root->left), minDepth(root->right));
 }
 
