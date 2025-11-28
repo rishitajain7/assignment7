@@ -1,35 +1,49 @@
 #include <iostream>
 using namespace std;
 
-void heapify(int a[], int n, int i){
-    int largest = i;
-    int l= 2*i+1, r = 2*i+2;
-
-    if(l < n && a[l]>a[largest]) {
-      largest = l;}
-    if(r < n && a[r]> a[largest]) {
-      largest = r;}
-
-    if(largest != i){
-        swap(a[i], a[largest]);
-        heapify(a, n, largest);
+void heapify(int arr[], int index , int n){
+    int largest = index;
+    int left = 2*index+1;
+    int right = 2*index+2;
+    
+    if(left<n&&arr[left]>arr[largest]){
+        largest = left;
+    }
+    if(right<n&&arr[right]>arr[largest]){
+        largest = right;
+    }
+    
+    if(largest!=index){
+        swap(arr[largest],arr[index]);
+        heapify(arr,largest,n);
     }
 }
 
-void heapsort(int a[], int n){
-    for(int i=n/2-1; i>=0; i--) heapify(a, n, i);
-    for(int i=n-1; i>=0; i--){
-        swap(a[0], a[i]);
-        heapify(a, i, 0);
+void maxheap(int arr[],int n){
+    //step down
+    
+    for (int i= n/2-1;i>=0;i--){
+        heapify(arr,i,n);
+    }
+}
+
+void printheap(int arr[],int n){
+    for(int i=0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
+    cout<<endl;
+}
+
+void sortarray(int arr[], int n){
+    for (int i=n-1;i>0;i--){
+        swap(arr[i],arr[0]);
+        heapify(arr,0,i);
     }
 }
 
 int main(){
-    int a[] = {5,3,8,4,2};
-    int n = 5;
-
-    heapsort(a, n);
-
-    cout << "Sorted: ";
-    for(int i=0; i<n; i++) cout << a[i] << " ";
+    int arr[]={10,2,33,5,66,7};
+    maxheap(arr,6);
+    sortarray(arr,6);
+    printheap(arr,6);
 }
